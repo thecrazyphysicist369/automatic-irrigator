@@ -25,6 +25,10 @@ The system uses a relay to control a solenoid valve, which regulates water flow.
 - **3D-Printed Casing** – Designed and printed by the creator to house all components securely and neatly.
 
 ---
+## 🔩 Circuit Diagram
+
+![wiring diagram](https://github.com/thecrazyphysicist369/automatic-irrigator/blob/main/circuit.png)
+---
 
 ## ⚙️ Features
 
