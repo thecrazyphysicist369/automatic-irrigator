@@ -62,7 +62,7 @@ The system uses a relay to control a solenoid valve, which regulates water flow.
 
 ## 📷 Gallery
 
-![Printed case](https://github.com/thecrazyphysicist369/automatic-irrigator/blob/main/IMG_8556.HEIC)
+![Printed case top](https://github.com/thecrazyphysicist369/automatic-irrigator/blob/main/IMG_8554.jpg)
 
 ---
 
