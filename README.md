@@ -23,6 +23,8 @@ The system uses a relay to control a solenoid valve, which regulates water flow.
 - **Relay Module** – Safely switches the solenoid valve on and off.
 - **Solenoid Valve** – Controls the flow of water to the plants.
 - **3D-Printed Casing** – Designed and printed by the creator to house all components securely and neatly.
+- **5V power supply** – To power the Arduino and the relay.
+- **12V power supply** – To power the solenoid valve.
 
 ---
 ## 🔩 Circuit Diagram
