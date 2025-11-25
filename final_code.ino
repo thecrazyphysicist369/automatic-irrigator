@@ -17,15 +17,21 @@ char* init_text[] = {
   
 };
 
+char* change_text[] = {
+  "  Squirter_69  ",
+  "initializing...",
+  
+};
+
 char* display_text[]{
   "K_1 K_2 TTO H20"
 };
 
 
 void setup() {
-  // initialize serial communication at 9600 bits per second:
+  // put your setup code here, to run once:
   Serial.begin(9600);
-  pinMode(relay, OUTPUT);
+    pinMode(relay, OUTPUT);
   
   // Setup the number of columns and rows that are available on the LCD.
   lcd.begin(16, 2);
@@ -41,50 +47,38 @@ void setup() {
   delay (3000);
 }
 
-// the loop routine runs over and over again forever:
+
+
 void loop() {
-
-  //this section is to read the potentiometer values and convert them to hours and seconds
-  // read the input on analog pin 0:
-  int sensorValue0 = analogRead(A0);
+  // put your main code here, to run repeatedly:
+  long sensorValue1 = analogRead(A1);
   // read the input on analog pin 2:
-  int sensorValue1 = analogRead(A2);
+  long sensorValue2 = analogRead(A2);
 
-  //this is the interval where the valve will be off (hours)
-  int normal0= (sensorValue0-100)/30;
-  //limiting the value from 0 to 24
-  if (normal0<0)
-  {
-    normal0=0;
-  }
-  if (normal0>24)
-  {
-    normal0=24;
-  }
-
-  //this is for the time the valve will be on (seconds)
-  int normal1= sensorValue1/10;
-  //limitint the value from 10 to 60
-  if (normal1<10)
-  {
-    normal1=10;
-  }
-  if (normal1>60)
-  {
-    normal1=60;
-  }
-
-  //this section is to operate the relay
-  unsigned long t1=normal0*3600; //converting the hours into seconds for better control
+  //mapping the first knob value from 1 to 24, stating interval
+  long mapped_1 = map(sensorValue1, 0, 1023, 1, 24);
+  //mapping the second knob value from 10 to 60, stating watering time
+  long mapped_2 = map(sensorValue2, 0, 1023, 10, 60);
   
-  unsigned long i = t1;
-  //starting the control loop
-  //for(i=t1; i>0; i--) //counting down hours by each seconds
-  while (i > 0)
+  long dupe_mapped_1 = mapped_1;
+  long dupe_mapped_2 = mapped_2;
+
+  long k_1 = mapped_1*3600;
+  long k_2 = mapped_2*1000;
+
+  Serial.print("\n starting while loop \n");
+  while (k_1>1)
   {
+    //if kbob value is changed in the middle of the loop
+    //then the program should break and run again
+    //with the new value
+    if (dupe_mapped_1 != mapped_1 || dupe_mapped_2 != mapped_2)
+    {
+      Serial.print("\nbreaking\n");
+      break;
+    }
 
-    delay(1000); //waiting for one second for each iteration
-
+    //
     lcd.clear();
     //printint the top row with static info
     lcd.setCursor(0,0);
@@ -92,47 +86,24 @@ void loop() {
     
     //printing hours
     lcd.setCursor(0,1);
-    lcd.print(normal0);
+    lcd.print(mapped_1);
     lcd.setCursor(2,1);
     lcd.print("h");
-    Serial.print("interval: ");
-    Serial.println(normal0);
     
     //printing seconds
     lcd.setCursor(4,1);
-    lcd.print(normal1);
+    lcd.print(mapped_2);
     lcd.setCursor(6,1);
     lcd.print("s");
-    Serial.print("duration: ");
-    Serial.println(normal1);
-
-    
-    
 
     //printing time to open
     lcd.setCursor(8,1);
-    lcd.print(i);
-    Serial.println(i);
+    lcd.print(k_1);
+    Serial.println(k_1);
     lcd.setCursor(13,1);
     lcd.print("s");
 
-    //sensor value readjustment
-    // read the input on analog pin 2:
-    int sensorValue1 = analogRead(A2);
-    //this is for the time the valve will be on (seconds)
-    int normal1= sensorValue1/10;
-    //limitint the value from 10 to 60
-    if (normal1<10)
-    {
-      normal1=10;
-    }
-    if (normal1>60)
-    {
-      normal1=60;
-    }
-    int t2=normal1*1000; //converting the seconds to miliseconds for delay control
-    //water turns on!!!
-    if(i==10)
+    if (k_1==5) //water turns on!!!
     {
     //displaying in the display
     lcd.clear();
@@ -142,32 +113,41 @@ void loop() {
     lcd.print("YUM! YUM! YUM!");
 
     digitalWrite(relay, HIGH); // Turn the relay on
-    delay(t2);
+    delay(k_2);
     digitalWrite(relay, LOW); // Turn the relay Off
-
-    } //water turns off
-
-    //sensor value readjustment
-    int sensorValue0 = analogRead(A0);
-    Serial.println(sensorValue0);
-    //this is the interval where the valve will be off (hours)
-    int normal0_a= (sensorValue0-100)/30;
-    //limiting the value from 0 to 24
-    if (normal0_a<0)
-    {
-      normal0_a=0;
-    }
-    if (normal0_a>24)
-    {
-      normal0_a=24;
     }
 
-    if (normal0 != normal0_a)
-    {
-      break;
-    }
-    i--;
+    //re-reading values to detect change in the middle of the loop
+    sensorValue1 = analogRead(A1);
+    // read the input on analog pin 2:
+    sensorValue2 = analogRead(A2);
+
+    //mapping the first knob value from 1 to 24, stating interval
+    mapped_1 = map(sensorValue1, 0, 1023, 1, 24);
+    //mapping the second knob value from 10 to 60, stating watering time
+    mapped_2 = map(sensorValue2, 0, 1023, 10, 60);
+  
+
+    //printing sensor values
+    Serial.print(k_1);
+    Serial.print("\n");
+    Serial.print("dupe 1: ");
+    Serial.print(dupe_mapped_1);
+    Serial.print("\n");
+    Serial.print("interval: ");
+    Serial.print(mapped_1);
+    Serial.print("\n");
+    Serial.print("dupe 2: ");
+    Serial.print(dupe_mapped_2);
+    Serial.print("\n");
+    Serial.print("water_time: ");
+    Serial.print(mapped_2);
+    Serial.print("\n");
+    Serial.print("\n");
+    
+    k_1--;
+    delay(1000); //each iteration takes 1 second
+
 }
-
 
 }
