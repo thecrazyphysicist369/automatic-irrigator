@@ -16,12 +16,12 @@ The system uses a relay to control a solenoid valve, which regulates water flow.
 
 ## 🔩 Hardware Components
 
-- ![**Arduino Uno/Nano**]() – Microcontroller for timing and control logic.
+- [**Arduino Uno/Nano**]() – Microcontroller for timing and control logic.
 - **2 Potentiometers** –  
   - One for setting the interval between watering cycles.  
   - One for setting the duration of each watering session.
 - **Relay Module** – Safely switches the solenoid valve on and off.
-- ![**Solenoid Valve**](https://amzn.in/d/5VcodRB) – Controls the flow of water to the plants. 
+- [**Solenoid Valve**](https://amzn.in/d/5VcodRB) – Controls the flow of water to the plants. 
 - **3D-Printed Casing** – Designed and printed by the creator to house all components securely and neatly.
 - **5V power supply** – To power the Arduino and the relay.
 - **12V power supply** – To power the solenoid valve.
