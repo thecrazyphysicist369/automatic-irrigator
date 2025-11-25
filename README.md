@@ -17,14 +17,14 @@ The system uses a relay to control a solenoid valve, which regulates water flow.
 ## 🔩 Hardware Components
 
 - [**Arduino Uno/Nano**]() – Microcontroller for timing and control logic.
-- **2 Potentiometers** –  
+- [**2 Potentiometers**](https://amzn.in/d/5XguNF9) –  
   - One for setting the interval between watering cycles.  
   - One for setting the duration of each watering session.
-- **Relay Module** – Safely switches the solenoid valve on and off.
+- [**Relay Module**](https://amzn.in/d/4JJ3AoD) – Safely switches the solenoid valve on and off.
 - [**Solenoid Valve**](https://amzn.in/d/5VcodRB) – Controls the flow of water to the plants. 
-- **3D-Printed Casing** – Designed and printed by the creator to house all components securely and neatly.
-- **5V power supply** – To power the Arduino and the relay.
-- **12V power supply** – To power the solenoid valve.
+- [**3D-Printed Casing**](https://github.com/thecrazyphysicist369/automatic-irrigator/blob/main/3d%20models.zip) – Designed and printed by the creator to house all components securely and neatly.
+- [**5V power supply**](https://amzn.in/d/fB40K1k) – To power the Arduino and the relay.
+- [**12V power supply**](https://amzn.in/d/bbHhZrX) – To power the solenoid valve.
 
 ---
 ## 🔩 Circuit Diagram
